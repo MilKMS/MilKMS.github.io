@@ -1,0 +1,17 @@
+title: Test Blog
+description: Game Information
+url: "https://MilKMS.github.io"
+baseurl: "" 
+
+thema: null
+remote_thema: jekyll/minima # 기본 미니멀 테마
+plugins:
+ - jekyll-feed
+ - jekyll-seo-tag
+ - jekyll-remote-thema
+
+ markdown: kramdown
+ highlight: rouge
+ kramdown:
+  input: GFM
+timezone: Asial/Seoul
