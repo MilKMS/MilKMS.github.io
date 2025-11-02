@@ -3,7 +3,7 @@ document.getElementById('year')?.textContent = new Date().getFullYear();
 
 // === 배경 이미지를 로컬에서 랜덤 표시 ===
 const bgImages = [
-  "001.jpg", "002.jpg", "003.jpg"  // ← 여기에 파일명 추가
+  "001.jpg", "002.jpg"  // ← 여기에 파일명 추가
 ];
 const bgFolder = "/assets/bg/";
 
