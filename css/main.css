@@ -14,22 +14,59 @@ body{
   overflow:hidden; /* 전체 배경 연출용 */
 }
 
-/* Fullscreen background */
+/* === Sharp(연필 스케치) 스타일 배경 === */
 #bg{
-  position:fixed; inset:0; background:#0b0f14 center/cover no-repeat;
-  filter:brightness(.9) saturate(1.05);
-  transform:scale(1.04);
-  will-change:background-image, transform;
-  transition:background-image .6s ease-in-out, transform .8s ease;
-}
-.bg-overlay{
   position:fixed; inset:0;
-  /* 기존보다 훨씬 옅게 */
-  background:
-    radial-gradient(1200px 600px at 50% 40%, rgba(0,0,0,.06), rgba(0,0,0,.20)),
-    linear-gradient(180deg, rgba(2,6,23,.10), rgba(2,6,23,.25));
+  /* 원본 사진은 JS에서 background-image로 설정됨 */
+  background:#0b0f14 center/cover no-repeat;
+  /* 연필 느낌: 색 뺌 + 대비/밝기 살짝 올림 */
+  filter: grayscale(1) contrast(1.18) brightness(1.04);
+  transform: scale(1.02);
+  will-change: background-image, transform;
+  transition: background-image .6s ease-in-out, transform .8s ease;
+}
+
+/* 종이 질감(있으면 강추). 없으면 opacity 0으로 두거나 주석 처리해도 OK */
+#bg::before{
+  content:"";
+  position:absolute; inset:0;
+  background: url("/assets/textures/paper.jpg") center/cover no-repeat;
+  mix-blend-mode: multiply;    /* 원본 위에 질감 얹기 */
+  opacity: .28;                /* 질감 강도 */
   pointer-events:none;
 }
+
+/* 해칭(hatching) 레이어: 얇은 연필선 같은 결 */
+#bg::after{
+  content:"";
+  position:absolute; inset:0;
+
+  background-image: url("data:image/svg+xml;utf8,\
+  <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'>\
+  <defs>\
+  <pattern id='h' width='20' height='20' patternUnits='userSpaceOnUse' patternTransform='rotate(-14)'>\
+  <line x1='0' y1='0' x2='0' y2='20' stroke='rgba(0,0,0,0.18)' stroke-width='1'/>\
+  <line x1='10' y1='0' x2='10' y2='20' stroke='rgba(0,0,0,0.08)' stroke-width='1'/>\
+  </pattern>\
+  </defs>\
+  <rect width='100%' height='100%' fill='url(%23h)'/>\
+  </svg>");
+
+  background-size: 20px 20px;
+  mix-blend-mode: multiply;    /* 선을 종이에 먹이는 느낌 */
+  opacity: .22;                /* 선 강도 */
+  pointer-events:none;
+}
+
+/* 기존 오버레이는 너무 어두우면 약하게 */
+.bg-overlay{
+  position:fixed; inset:0;
+  background:
+    radial-gradient(1100px 550px at 50% 42%, rgba(0,0,0,.05), rgba(0,0,0,.20)),
+    linear-gradient(180deg, rgba(2,6,23,.08), rgba(2,6,23,.22));
+  pointer-events:none;
+}
+
 
 
 /* Center stage */
